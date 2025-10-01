@@ -25,7 +25,7 @@ export async function getTopNews() {
     )
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
-  return res!;
+  return res;
 }
 
 export async function getLatestNews() {
@@ -38,7 +38,7 @@ export async function getLatestNews() {
     )
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
-  return res!;
+  return res;
 }
 
 export async function getTrendingNews() {
@@ -51,7 +51,7 @@ export async function getTrendingNews() {
     )
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
-  return res!;
+  return res;
 }
 
 export async function getVideoNews() {
@@ -64,7 +64,7 @@ export async function getVideoNews() {
     )
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
-  return res!;
+  return res;
 }
 
 export async function getAdVideos() {
@@ -77,7 +77,7 @@ export async function getAdVideos() {
     )
   );
   if (err) return createEmptyDataInstance<AdVideoData[]>([]);
-  return res!;
+  return res;
 }
 
 export async function getLandscapeAdBannerImages() {
@@ -90,7 +90,7 @@ export async function getLandscapeAdBannerImages() {
     )
   );
   if (err) return createEmptyDataInstance<AdBannerImageData[]>([]);
-  return res!;
+  return res;
 }
 
 export async function getPortraitAdBannerImages() {
@@ -103,7 +103,7 @@ export async function getPortraitAdBannerImages() {
     )
   );
   if (err) return createEmptyDataInstance<AdBannerImageData[]>([]);
-  return res!;
+  return res;
 }
 
 export async function getNewsInfo(id: string) {
@@ -118,7 +118,7 @@ export async function getNewsInfo(id: string) {
     )
   );
   if (err) return null;
-  return res!;
+  return res;
 }
 
 export async function getCategoryWiseNews() {
@@ -139,7 +139,7 @@ export async function getCategoryWiseNews() {
         articles: Data[];
       }[]
     >([]);
-  return res!;
+  return res;
 }
 
 export async function getQuotation() {
@@ -157,7 +157,7 @@ export async function getQuotation() {
       a: string;
       h: string;
     } | null>(null);
-  return res!;
+  return res;
 }
 
 export async function getCategoryNewsInfo(id: string) {
@@ -172,5 +172,5 @@ export async function getCategoryNewsInfo(id: string) {
     )
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
-  return res!;
+  return res;
 }

@@ -54,15 +54,15 @@ export type AdBannerImageData = {
 };
 
 export type ApiResponseWithoutPagination = BaseApiResonseWithoutPagination & {
-  data: Data[];
+  data?: Data[];
 };
 
 export type ApiResponseWithPagination = BaseApiResonseWithPagination & {
-  data: Data[];
+  data?: Data[];
 };
 
 export type ApiResponseAdVideoWithPagination = BaseApiResonseWithPagination & {
-  data: AdVideoData[];
+  data?: AdVideoData[];
 };
 
 export type ApiResponseAdImageWithPagination = BaseApiResonseWithPagination & {
@@ -71,12 +71,12 @@ export type ApiResponseAdImageWithPagination = BaseApiResonseWithPagination & {
 
 export type ApiResponseCategoryWiseNewsWithPagination =
   BaseApiResonseWithPagination & {
-    data: { id: number; name: string; articles: Data[] }[];
+    data?: { id: number; name: string; articles: Data[] }[];
   };
 
 export type ApiResponseQuotation = {
   status: boolean;
-  data: {
+  data?: {
     q: string;
     a: string;
     h: string;

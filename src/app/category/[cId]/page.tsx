@@ -9,9 +9,11 @@ import Link from "next/link";
 export async function generateStaticParams() {
   const res = await getCategoryWiseNews();
 
-  return res.data?.map((category) => ({
-    cId: category.articles[0].category.id.toString(),
-  }));
+  return (
+    res.data?.map((category) => ({
+      cId: category.articles[0].category.id.toString(),
+    })) ?? []
+  );
 }
 
 export async function generateMetadata({
@@ -22,7 +24,7 @@ export async function generateMetadata({
   const { cId } = await params;
   const res = await getCategoryWiseNews();
 
-  const category = res.data.find(
+  const category = res.data?.find(
     (cat) => cat.articles[0].category.id === Number(cId)
   );
 
@@ -56,7 +58,7 @@ export default async function Page({
             <div>
               <span className="text-red-600">Category</span>
               <h2 className="text-3xl font-bold text-gray-900">
-                {res.data[0]?.category.name}
+                {res.data?.[0]?.category.name}
               </h2>
               <div className="bg-red-600 w-20 h-[5px] rounded mt-5"></div>
             </div>

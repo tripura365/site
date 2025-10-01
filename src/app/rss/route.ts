@@ -25,10 +25,10 @@ export async function GET() {
   });
 
   const topNews = (await getTopNews()).data;
-  const latestPost = (await getLatestNews()).data[0]!;
+  const latestPost = (await getLatestNews())?.data?.[0];
   const trendingNews = (await getTrendingNews()).data;
   const videoNews = (await getVideoNews()).data;
-  const categoryWiseNews = (await getCategoryWiseNews()).data.reduce<Data[]>(
+  const categoryWiseNews = (await getCategoryWiseNews())?.data?.reduce<Data[]>(
     (acc, cat) => {
       return acc.concat(cat.articles);
     },
@@ -36,20 +36,21 @@ export async function GET() {
   );
 
   const data_acc = [
-    ...topNews,
+    ...(topNews ?? []),
     latestPost,
-    ...trendingNews,
+    ...(trendingNews ?? []),
     videoNews,
-    ...categoryWiseNews,
+    ...(categoryWiseNews ?? []),
   ] as Data[];
 
   data_acc.forEach((data) => {
-    feed.item({
-      title: data.title,
-      description: data.body?.slice(0, 200),
-      date: new Date(data.published_on),
-      url: `${site_url}/news/${data.id}`,
-    });
+    if (data)
+      feed.item({
+        title: data.title,
+        description: data.body?.slice(0, 200),
+        date: new Date(data.published_on),
+        url: `${site_url}/news/${data.id}`,
+      });
   });
 
   return new Response(feed.xml({ indent: true }), {

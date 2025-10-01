@@ -9,8 +9,8 @@ export const revalidate = 60 * 10;
 
 export default async function Page() {
   const { data } = await getLatestNews();
-  const [post] = data;
-  return (
+  const [post] = data ?? [];
+  return post ? (
     <section className="py-16 bg-gray-50" id="latest">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-12">
@@ -83,5 +83,5 @@ export default async function Page() {
         </article>
       </div>
     </section>
-  );
+  ) : null;
 }

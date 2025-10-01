@@ -6,7 +6,7 @@ export default async function CarouselSC() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <HeroCarousel data={data} />
+      <HeroCarousel data={data ?? []} />
     </section>
   );
 }

@@ -55,10 +55,10 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const newsSet = new Set<number>();
 
-  (await getTopNews()).data.forEach((news) => newsSet.add(news.id));
-  (await getLatestNews()).data.forEach((news) => newsSet.add(news.id));
-  (await getTrendingNews()).data.forEach((news) => newsSet.add(news.id));
-  (await getCategoryWiseNews()).data.forEach((cat) =>
+  (await getTopNews()).data?.forEach((news) => newsSet.add(news.id));
+  (await getLatestNews()).data?.forEach((news) => newsSet.add(news.id));
+  (await getTrendingNews()).data?.forEach((news) => newsSet.add(news.id));
+  (await getCategoryWiseNews()).data?.forEach((cat) =>
     cat.articles.forEach((news) => newsSet.add(news.id))
   );
 
