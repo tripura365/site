@@ -13,7 +13,7 @@ import {
   AdBannerImageData,
 } from "@/types/response";
 
-const origin = "http://210.79.128.182:8000";
+const origin = "https://master-news-service.onrender.com";
 
 export async function getTopNews() {
   const [err, res] = await catchError<ApiResponseWithoutPagination>(
