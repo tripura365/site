@@ -14,8 +14,8 @@ import {
 } from "@/types/response";
 
 // THis is the origin host URL
-const origin = "https://master-news-service.onrender.com";
-const hostId = "7a0e2ceb7b344f58a3245325440db44d";
+const origin = process.env.ORIGIN ?? "https://master-news-service.onrender.com";
+const hostId = process.env.HOST_ID ?? "7a0e2ceb7b344f58a3245325440db44d";
 
 export async function getTopNews() {
   const [err, res] = await catchError<ApiResponseWithoutPagination>(
