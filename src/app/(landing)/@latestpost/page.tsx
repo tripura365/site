@@ -1,7 +1,6 @@
 import { getLatestNews } from "@/actions/news";
-import { getViews } from "@/lib/utils";
 import { format } from "date-fns";
-import { Clock, Eye, MessageCircle } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,78 +9,81 @@ export const revalidate = 60 * 10;
 export default async function Page() {
   const { data } = await getLatestNews();
   const [post] = data ?? [];
-  return post ? (
-    <section className="py-16 bg-gray-50" id="latest">
+
+  if (!post) return null;
+
+  return (
+    <section className="py-12 md:py-20 bg-white" id="latest">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-12">
-          <h2 className="text-4xl font-bold text-gray-900">সর্বশেষ খবর</h2>
+        <div className="flex items-center justify-between mb-10">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
+            সর্বশেষ খবর
+          </h2>
+          <div className="h-1 flex-1 mx-6 bg-gray-100 rounded-full hidden md:block" />
         </div>
 
-        <article className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-            {/* Image Section */}
-            <div className="relative overflow-hidden">
-              <div className="w-full h-64 lg:h-full">
-                {post?.images.length && (
-                  <Image
-                    src={post.images[0]}
-                    alt={post.title}
-                    height={650}
-                    width={550}
-                    className="size-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                )}
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
-              <div className="absolute top-4 left-4 flex items-center space-x-2">
-                <span className="px-3 py-1 bg-blue-600 text-white text-sm font-medium rounded-full">
-                  {post?.category.name}
-                </span>
-                <span className="px-3 py-1 bg-red-600 text-white text-sm font-medium rounded-full">
-                  Latest
-                </span>
-              </div>
-            </div>
+        <Link href={`/news/${post.id}`} className="group block">
+          <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
+            {/* Background Image with Zoom Effect */}
+            {post.images.length > 0 && (
+              <Image
+                src={post.images[0]}
+                alt={post.title}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                priority
+              />
+            )}
 
-            {/* Content Section */}
-            <div className="p-8 lg:p-12 flex flex-col justify-center">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Clock className="h-4 w-4" />
-                  <span>
-                    {post?.created_on &&
-                      format(new Date(post.created_on), "PPP")}
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
+
+            {/* Content Container */}
+            <div className="absolute bottom-0 left-0 w-full p-6 md:p-12 flex flex-col md:flex-row items-end justify-between gap-6">
+              <div className="max-w-3xl space-y-4">
+                {/* Badges */}
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="px-4 py-1.5 bg-blue-600/90 backdrop-blur-sm text-white text-sm font-semibold rounded-full shadow-sm">
+                    {post?.category?.name}
+                  </span>
+                  <span className="px-4 py-1.5 bg-red-600/90 backdrop-blur-sm text-white text-sm font-semibold rounded-full shadow-sm animate-pulse">
+                    Latest
                   </span>
                 </div>
-              </div>
 
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors">
-                {post?.title}
-              </h1>
+                {/* Title */}
+                <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight drop-shadow-lg">
+                  {post.title}
+                </h1>
 
-              <p className="text-gray-700 text-lg mb-4 leading-relaxed line-clamp-[10]">
-                {post?.body}
-              </p>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-6">
-                  <div className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors cursor-pointer"></div>
-                  {/* <div className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors cursor-pointer">
-                    <Share2 className="h-5 w-5" />
-                    <span className="font-medium">Share</span>
-                  </div> */}
+                {/* Meta Info */}
+                <div className="flex items-center gap-6 text-gray-200 text-sm md:text-base">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    <span>
+                      {post.created_on &&
+                        format(new Date(post.created_on), "PPP")}
+                    </span>
+                  </div>
                 </div>
 
-                <Link href={`/news/${post?.id}`}>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg transform hover:-translate-y-0.5">
-                    Read Full Article
-                  </button>
-                </Link>
+                {/* Description */}
+                <p className="text-gray-300 text-lg line-clamp-2 md:line-clamp-3 max-w-2xl leading-relaxed">
+                  {post.body}
+                </p>
+              </div>
+
+              {/* CTA Button */}
+              <div className="hidden md:block">
+                <button className="flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-full font-bold transition-all duration-300 hover:bg-blue-50 hover:scale-105 shadow-lg group-hover:shadow-blue-900/20">
+                  Read Full Article
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
               </div>
             </div>
           </div>
-        </article>
+        </Link>
       </div>
     </section>
-  ) : null;
+  );
 }
