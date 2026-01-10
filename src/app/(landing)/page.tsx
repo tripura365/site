@@ -109,13 +109,13 @@ export default async function Home() {
       </div>
 
       {/* Daily Shlok Section */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="relative bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-gray-100 text-center overflow-hidden group hover:shadow-2xl transition-shadow duration-500">
+      <section className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-4 py-6">
+        <div className="relative bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 text-center overflow-hidden group hover:shadow-2xl transition-shadow duration-500">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-red-500 to-purple-600" />
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-orange-100 rounded-full blur-3xl opacity-50 group-hover:opacity-70 transition-opacity" />
           <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-100 rounded-full blur-3xl opacity-50 group-hover:opacity-70 transition-opacity" />
 
-          <h4 className="relative text-2xl md:text-3xl font-bold text-gray-800 mb-4 leading-relaxed font-serif">
+          <h4 className="relative text-xl md:text-2xl font-bold text-gray-800 mb-4 leading-relaxed font-serif">
             <span className="text-4xl text-orange-500 opacity-50 absolute -top-4 -left-2">
               ❝
             </span>
