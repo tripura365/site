@@ -3,6 +3,7 @@ import {
   getTopNews,
   getLatestNews,
   getSlok,
+  getImageGallery,
 } from "@/actions/news";
 import HeroCarousel from "@/components/custom/hero-carousel";
 import { Metadata } from "next";
@@ -14,7 +15,7 @@ import { Galada } from "next/font/google";
 import { cn } from "@/lib/utils";
 import siteLogo from "@/../public/logo.png";
 
-export const relaidate = 60 * 10;
+// export const revalidate = 600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const headerList = await headers();
@@ -73,7 +74,7 @@ const impLinks: ImpLink[] = [
 const galanda = Galada({ subsets: ["latin"], weight: ["400"] });
 
 export default async function Home() {
-  const { data } = await getTopNews();
+  const { data: imageGallery } = await getImageGallery();
   const categories = await getCategoryWiseNews();
   const slok = await getSlok();
   const { data: latestNews } = await getLatestNews();
@@ -215,7 +216,7 @@ export default async function Home() {
 
       {/* Hero Carousel */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <HeroCarousel data={data ?? []} />
+        <HeroCarousel data={imageGallery ?? []} />
       </section>
     </div>
   );

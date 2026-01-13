@@ -13,6 +13,8 @@ import {
   AdVideoData,
   AdBannerImageData,
   WeatherApiResponse,
+  ApiResponseImageGallery,
+  ImageItem,
 } from "@/types/response";
 
 // THis is the origin host URL
@@ -192,6 +194,19 @@ export async function getWeatherInfo() {
   );
 
   if (err) return null;
+  return res;
+}
+
+export async function getImageGallery() {
+  const [err, res] = await catchError<ApiResponseImageGallery>(
+    retry(() =>
+      fetch(`${origin}/api/index_delivery?intent=image_gallary`, {
+        headers: { "Host-Id": hostId },
+        next: { revalidate: 60 * 10 },
+      }).then((res) => res.json())
+    )
+  );
+  if (err) return createEmptyDataInstance<ImageItem[]>([]);
   return res;
 }
 

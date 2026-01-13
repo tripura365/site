@@ -1,6 +1,6 @@
 "use client";
 
-import { Data } from "@/types/response";
+import { Data, ImageItem } from "@/types/response";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import asset2 from "@/../public/news-365-2.jpeg";
 import asset3 from "@/../public/news-365-3.jpeg";
 import durga from "@/../public/durga.png";
 
-export default function HeroCarousel({ data: slides }: { data: Data[] }) {
+export default function HeroCarousel({ data: slides }: { data: ImageItem[] }) {
   // slides = [
   //   //@ts-ignore
   //   {
@@ -60,20 +60,20 @@ export default function HeroCarousel({ data: slides }: { data: Data[] }) {
             }`}
           >
             <div className="w-full h-full">
-              {slide.images.length && (
+              {slide && (
                 <Image
-                  src={slide.images[0]}
-                  alt={slide.title}
+                  src={slide.secure_url}
+                  alt={slide.caption}
                   className="size-full object-cover"
-                  width={600}
-                  height={300}
+                  width={800}
+                  height={500}
                 />
               )}
             </div>
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
               <h2 className="text-xl md:text-2xl font-bold text-white mb-3 leading-tight">
-                {slide.title}
+                {slide.caption}
               </h2>
 
               {/* <p className="text-gray-200 text-base md:text-lg max-w-3xl line-clamp-3">

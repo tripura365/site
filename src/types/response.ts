@@ -44,6 +44,15 @@ export type Data = {
   videos: any[]; // Replace with exact video structure
 };
 
+export type ImageItem = {
+  id: number;
+  caption: string;
+  public_id: string;
+  secure_url: string;
+  created_on: string; // e.g. "Mon, 12 Jan 2026 18:18:12 GMT"
+  image_of_tripura: boolean;
+};
+
 export type AdVideoData = { id: number; link: string; published_on: string };
 
 export type AdBannerImageData = {
@@ -86,6 +95,10 @@ export type ApiResponseQuotation = {
 export type WeatherApiResponse = {
   status: boolean;
   data: WeatherData;
+};
+
+export type ApiResponseImageGallery = BaseApiResonseWithPagination & {
+  data: ImageItem[];
 };
 
 export type WeatherData = {
