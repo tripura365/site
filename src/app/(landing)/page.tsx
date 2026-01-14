@@ -7,6 +7,7 @@ import {
   getAllCategories,
 } from "@/actions/news";
 import HeroCarousel from "@/components/custom/hero-carousel";
+import TopNewsSidebar from "@/components/custom/top-news-sidebar";
 import { Metadata } from "next";
 import Link from "next/link";
 import { headers } from "next/headers";
@@ -79,6 +80,7 @@ export default async function Home() {
   const categories = await getAllCategories();
   const slok = await getSlok();
   const { data: latestNews } = await getLatestNews();
+  const topNews = await getTopNews();
 
   return (
     <div className="bg-gray-50 min-h-screen pb-12">
@@ -217,9 +219,24 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Hero Carousel */}
+      {/* Hero Section: Carousel + Top News Sidebar */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <HeroCarousel data={imageGallery ?? []} />
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Main Carousel - Takes 3/4 width on desktop */}
+          <div className="lg:col-span-3">
+            <HeroCarousel data={imageGallery ?? []} />
+          </div>
+
+          {/* Side News - Takes 1/4 width on desktop, stacks below on mobile */}
+          <div className="lg:col-span-1 h-full min-h-[400px]">
+            {/* We fetch top news here or use a subset of what we might already have if available, 
+                but based on imports we need to fetch it. 
+                Wait, we haven't fetched 'topNews' in the component body yet. 
+                Let's add that fetch at the top of the function first. 
+             */}
+            <TopNewsSidebar data={topNews?.data?.slice(0, 3) ?? []} />
+          </div>
+        </div>
       </section>
     </div>
   );

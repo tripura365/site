@@ -55,9 +55,8 @@ export default function HeroCarousel({ data: slides }: { data: ImageItem[] }) {
         // <Link href={`/news/${slides[currentSlide].id}`} key={slide.id}>
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-500 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 transition-opacity duration-500 ${index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
         >
           <div className="w-full h-full">
             {slide && (
@@ -72,7 +71,7 @@ export default function HeroCarousel({ data: slides }: { data: ImageItem[] }) {
           </div>
           <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-3 leading-tight">
+            <h2 className="text-base md:text-lg font-bold text-white mb-3 leading-tight">
               {slide.caption}
             </h2>
 
@@ -104,9 +103,8 @@ export default function HeroCarousel({ data: slides }: { data: ImageItem[] }) {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-200 ${
-              index === currentSlide ? "bg-white" : "bg-white/50"
-            }`}
+            className={`w-3 h-3 rounded-full transition-all duration-200 ${index === currentSlide ? "bg-white" : "bg-white/50"
+              }`}
           />
         ))}
       </div>

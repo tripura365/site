@@ -1,7 +1,7 @@
 import { getTrendingNews } from "@/actions/news";
 import TrendingNews from "@/components/custom/trending-news";
 
-export const revalidate = 60 * 10;
+export const revalidate = 600;
 
 export default async function Page() {
   const { data } = await getTrendingNews();

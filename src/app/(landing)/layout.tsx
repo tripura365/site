@@ -21,7 +21,7 @@ export default function Layout({
     <main className="space-y-4">
       {children}
       {adimages}
-      {topnews}
+      {/* {topnews} - Moved to page.tsx sidebar */}
       {latestpost}
       {trendingpost}
       {videos}
