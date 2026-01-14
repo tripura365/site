@@ -3,43 +3,19 @@
 import { Data, ImageItem } from "@/types/response";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import asset1 from "@/../public/news-365-1.jpeg";
-import asset2 from "@/../public/news-365-2.jpeg";
-import asset3 from "@/../public/news-365-3.jpeg";
-import durga from "@/../public/durga.png";
 
 export default function HeroCarousel({ data: slides }: { data: ImageItem[] }) {
-  // slides = [
-  //   //@ts-ignore
-  //   {
-  //     id: 78888,
-  //     images: [asset1],
-  //     title: "Sample News Title 1",
-  //   },
-  //   //@ts-ignore
-  //   {
-  //     id: 78889,
-  //     images: [asset2],
-  //     title: "Sample News Title 2",
-  //   },
-  //   //@ts-ignore
-  //   {
-  //     id: 78890,
-  //     images: [asset3],
-  //     title: "Sample News Title 3",
-  //   },
-  //   ...slides,
-  // ];
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [mouseOver, setMouseOver] = useState(false);
 
   useEffect(() => {
+    if (mouseOver) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [slides.length, mouseOver]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -50,13 +26,18 @@ export default function HeroCarousel({ data: slides }: { data: ImageItem[] }) {
   };
 
   return (
-    <div className="relative h-96 md:h-125 overflow-hidden bg-gray-900 rounded-lg">
+    <div
+      className="relative h-96 md:h-125 overflow-hidden bg-gray-900 rounded-lg"
+      onMouseEnter={() => setMouseOver(true)}
+      onMouseLeave={() => setMouseOver(false)}
+    >
       {slides?.map((slide, index) => (
         // <Link href={`/news/${slides[currentSlide].id}`} key={slide.id}>
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-500 ${index === currentSlide ? "opacity-100" : "opacity-0"
-            }`}
+          className={`absolute inset-0 transition-opacity duration-500 ${
+            index === currentSlide ? "opacity-100" : "opacity-0"
+          }`}
         >
           <div className="w-full h-full">
             {slide && (
@@ -103,8 +84,9 @@ export default function HeroCarousel({ data: slides }: { data: ImageItem[] }) {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-200 ${index === currentSlide ? "bg-white" : "bg-white/50"
-              }`}
+            className={`w-3 h-3 rounded-full transition-all duration-200 ${
+              index === currentSlide ? "bg-white" : "bg-white/50"
+            }`}
           />
         ))}
       </div>
