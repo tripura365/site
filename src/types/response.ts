@@ -33,9 +33,9 @@ export type Data = {
   total_views: number;
   category: Category;
   published: boolean;
-  images: any[]; // Replace with exact image structure
+  images: string[]; // Replace with exact image structure
   thumbnail: string;
-  videos: any[]; // Replace with exact video structure
+  videos: string[]; // Replace with exact video structure
 };
 
 export type Category = {

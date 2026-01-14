@@ -14,7 +14,7 @@ import { headers } from "next/headers";
 import { Dot, Globe, Plane, TramFront } from "lucide-react";
 import { IconType } from "react-icons";
 import { Galada } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { cn, getYtThumbnail } from "@/lib/utils";
 import siteLogo from "@/../public/logo.png";
 
 // export const revalidate = 600;
@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url: `${protocol}://${origin}`,
       images: [
         {
-          url: res.data?.[0]?.images?.[0] || siteLogo.src,
+          url: res.data?.[0]?.images?.[0] || (res.data?.[0]?.videos?.[0] ? getYtThumbnail(res.data[0].videos[0]) : siteLogo.src),
           width: 210,
           height: 70,
           alt: "Tripura 365",
@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Tripura 365",
       description: `Tripura 365 is a dynamic and trusted Indian news website that brings you 
     the latest and most relevant news from the vibrant state of Tripura.`,
-      images: [res.data?.[0]?.images?.[0] || siteLogo.src],
+      images: [res.data?.[0]?.images?.[0] || (res.data?.[0]?.videos?.[0] ? getYtThumbnail(res.data[0].videos[0]) : siteLogo.src)],
     },
   };
 }

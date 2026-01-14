@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getYtThumbnail } from "@/lib/utils";
 
 export default async function Page() {
   const res = await getCategoryWiseNews();
@@ -51,9 +52,9 @@ export default async function Page() {
                     className="group block"
                   >
                     <article className="relative h-72 w-full rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                      {category.articles[0].images.length > 0 && (
+                      {(category.articles[0].images.length > 0 || (category.articles[0].videos && category.articles[0].videos.length > 0)) && (
                         <Image
-                          src={category.articles[0].images[0]}
+                          src={category.articles[0].images.length > 0 ? category.articles[0].images[0] : getYtThumbnail(category.articles[0].videos[0])}
                           alt={category.articles[0].title}
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -88,9 +89,9 @@ export default async function Page() {
                     >
                       <article className="flex gap-5 items-start p-3 -mx-3 rounded-xl hover:bg-gray-50 transition-colors">
                         <div className="relative w-28 h-20 shrink-0 rounded-lg overflow-hidden shadow-sm">
-                          {article.images.length > 0 && (
+                          {(article.images.length > 0 || (article.videos && article.videos.length > 0)) && (
                             <Image
-                              src={article.images[0]}
+                              src={article.images.length > 0 ? article.images[0] : getYtThumbnail(article.videos[0])}
                               alt={article.title}
                               fill
                               className="object-cover group-hover:scale-110 transition-transform duration-300"

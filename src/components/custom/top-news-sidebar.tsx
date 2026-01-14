@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, getYtThumbnail } from "@/lib/utils";
 
 interface TopNewsSidebarProps {
     data: Data[];
@@ -34,9 +34,9 @@ export default function TopNewsSidebar({ data, className }: TopNewsSidebarProps)
                         className="group relative w-full h-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
                     >
                         {/* Background Image */}
-                        {news.images && news.images.length > 0 ? (
+                        {(news.images && news.images.length > 0) || (news.videos && news.videos.length > 0) ? (
                             <Image
-                                src={news.images[0]}
+                                src={news.images && news.images.length > 0 ? news.images[0] : getYtThumbnail(news.videos[0])}
                                 alt={news.title}
                                 fill
                                 className="object-cover transition-transform duration-700 group-hover:scale-110"

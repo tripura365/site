@@ -24,8 +24,8 @@ export function getViews({
     viewFactor > 1000
       ? 1000 + Math.floor(viewFactor / seed_len)
       : viewFactor > 200
-      ? 500 + Math.floor(viewFactor / seed_len)
-      : viewFactor;
+        ? 500 + Math.floor(viewFactor / seed_len)
+        : viewFactor;
 
   return viewFactor;
 }
@@ -53,11 +53,14 @@ export async function retry<T>(
     retires_local_count--;
     retires_local_count &&
       console.log(
-        `Retrying ${retires_local_count} of ${options.retriesCount} ${
-          options?.helperText ?? ""
+        `Retrying ${retires_local_count} of ${options.retriesCount} ${options?.helperText ?? ""
         }`
       );
   }
   console.log(`Failed attempt ${options?.helperText ?? ""}`);
   throw new Error("Retry Limit Exceeded");
+}
+
+export function getYtThumbnail(id: string) {
+  return `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 }

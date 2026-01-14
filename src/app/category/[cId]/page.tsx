@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, Calendar } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, getYtThumbnail } from "@/lib/utils";
 
 export async function generateStaticParams() {
   const res = await getCategoryWiseNews();
@@ -31,6 +31,21 @@ export async function generateMetadata({
 
   return {
     title: category?.name,
+    openGraph: {
+      title: category?.name,
+      images: [
+        {
+          url: category?.articles?.[0]?.images?.[0] || (category?.articles?.[0]?.videos?.[0] ? getYtThumbnail(category.articles[0].videos[0]) : ""),
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: category?.name,
+      images: [
+        category?.articles?.[0]?.images?.[0] || (category?.articles?.[0]?.videos?.[0] ? getYtThumbnail(category.articles[0].videos[0]) : ""),
+      ],
+    },
   };
 }
 
@@ -77,7 +92,7 @@ export default async function Page({
             </div>
             <span className="font-medium">Back to Home</span>
           </GotoPrev>
-          
+
           <div className="flex items-baseline gap-4">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
               {categoryName}
@@ -101,9 +116,9 @@ export default async function Page({
             <Link href={`/news/${featuredNews.id}`} className="group block">
               <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                 {/* Background Image with Zoom Effect */}
-                {featuredNews.images.length > 0 && (
+                {(featuredNews.images.length > 0 || (featuredNews.videos && featuredNews.videos.length > 0)) && (
                   <Image
-                    src={featuredNews.images[0]}
+                    src={featuredNews.images.length > 0 ? featuredNews.images[0] : getYtThumbnail(featuredNews.videos[0])}
                     alt={featuredNews.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -174,18 +189,18 @@ export default async function Page({
                 <Link href={`/news/${news.id}`} key={news.id} className="group block h-full">
                   <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                     {/* Full Background Image */}
-                    {news.images.length > 0 && (
+                    {(news.images.length > 0 || (news.videos && news.videos.length > 0)) && (
                       <Image
-                        src={news.images[0]}
+                        src={news.images.length > 0 ? news.images[0] : getYtThumbnail(news.videos[0])}
                         alt={news.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                     )}
-                    
+
                     {/* Strong Gradient Overlay */}
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent opacity-90 transition-opacity duration-300" />
-                    
+
                     {/* Top Badges */}
                     <div className="absolute top-4 left-4 z-10">
                       <span className="px-3 py-1 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-bold rounded-full shadow-sm">

@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getYtThumbnail } from "@/lib/utils";
 
 export default function TopNews({
   data,
@@ -38,10 +39,14 @@ export default function TopNews({
               className="group block h-full"
             >
               <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                {/* Full Background Image */}
-                {news.images.length > 0 && (
+                {(news.images.length > 0 ||
+                  (news.videos && news.videos.length > 0)) && (
                   <Image
-                    src={news.images[0]}
+                    src={
+                      news.images.length > 0
+                        ? news.images[0]
+                        : getYtThumbnail(news.videos[0])
+                    }
                     alt={news.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"

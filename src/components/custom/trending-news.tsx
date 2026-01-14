@@ -1,4 +1,4 @@
-import { getViews } from "@/lib/utils";
+import { getViews, getYtThumbnail } from "@/lib/utils";
 import { Data } from "@/types/response";
 import { Eye, TrendingUp, ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -21,17 +21,17 @@ export default function TrendingNews({ data }: { data?: Data[] }) {
             <Link href={`/news/${post.id}`} key={post.id} className="group block h-full">
               <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 {/* Full Background Image */}
-                {post.images.length > 0 && (
+                {(post.images.length > 0 || (post.videos && post.videos.length > 0)) && (
                   <Image
-                    src={post.images[0]}
+                    src={post.images.length > 0 ? post.images[0] : getYtThumbnail(post.videos[0])}
                     alt={post.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 )}
-                
+
                 {/* Strong Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-90 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent opacity-90 transition-opacity duration-300" />
 
                 {/* Top Badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
@@ -42,9 +42,9 @@ export default function TrendingNews({ data }: { data?: Data[] }) {
 
                 {/* Ranking / Trending Badge */}
                 <div className="absolute top-4 right-4 z-10">
-                   <span className="flex items-center justify-center w-10 h-10 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold rounded-full shadow-lg">
-                      #{index + 1}
-                   </span>
+                  <span className="flex items-center justify-center w-10 h-10 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold rounded-full shadow-lg">
+                    #{index + 1}
+                  </span>
                 </div>
 
                 {/* Bottom Content Overlay */}

@@ -2,7 +2,7 @@ import { getCategoryWiseNews } from "@/actions/news";
 import { Facebook, Mail, MapPin } from "lucide-react";
 import Logo from "./logo";
 import Link from "next/link";
-import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 
 export default async function Footer() {
   const categoryResponse = await getCategoryWiseNews();
@@ -68,6 +68,13 @@ export default async function Footer() {
                 className="h-10 w-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all duration-300 group"
               >
                 <FaInstagram className="h-5 w-5 group-hover:scale-110 transition-transform" />
+              </Link>
+              <Link
+                href={"https://www.youtube.com/@PriyankuModak/"}
+                target="_blank"
+                className="h-10 w-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all duration-300 group"
+              >
+                <FaYoutube className="h-5 w-5 group-hover:scale-110 transition-transform" />
               </Link>
             </div>
           </div>

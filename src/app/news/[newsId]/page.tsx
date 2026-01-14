@@ -21,7 +21,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import FbShare from "./_components/fb-share";
 import WaShare from "./_components/wa-share";
-import { getViews } from "@/lib/utils";
+import { getViews, getYtThumbnail } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -47,7 +47,7 @@ export async function generateMetadata({
       url: `${protocol}://${host}/news/${newsId}`,
       images: [
         {
-          url: article?.images[0],
+          url: article?.images[0] || (article?.videos?.[0] ? getYtThumbnail(article.videos[0]) : ""),
           width: 1200,
           height: 630,
           alt: article?.title,
@@ -58,7 +58,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: article?.title,
       description: article?.body.slice(0, 200),
-      images: [article?.images[0]],
+      images: [article?.images[0] || (article?.videos?.[0] ? getYtThumbnail(article.videos[0]) : "")],
     },
   };
 }
@@ -75,6 +75,8 @@ export async function generateStaticParams() {
 
   return Array.from(newsSet).map((id) => ({ newsId: id.toString() }));
 }
+
+
 
 export default async function Page({
   params,
@@ -93,7 +95,7 @@ export default async function Page({
   if (!article || (article as any)?.error)
     return (
       <div className="min-h-[60vh] flex items-center justify-center bg-gray-50">
-        <div className="text-center space-y-4">
+        <div className="text-center flex flex-col items-center space-y-4">
           <h2 className="text-3xl font-bold text-gray-900">
             Article Not Found
           </h2>
@@ -111,13 +113,15 @@ export default async function Page({
       </div>
     );
 
+  const image = article.images?.[0] ? article.images[0] : article.videos?.[0] ? getYtThumbnail(article.videos[0]) : null;
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section with Parallax-like effect */}
       <div className="relative h-[70vh] w-full overflow-hidden">
-        {article?.images?.length > 0 && (
+        {image && (
           <Image
-            src={article.images[0]}
+            src={image}
             alt={article.title}
             fill
             className="object-cover"
@@ -206,6 +210,20 @@ export default async function Page({
               </button>
             </div>
           </div>
+
+
+          {/* Video Section */}
+          {article.videos && article.videos.length > 0 && (
+            <div className="mb-8 w-full aspect-video rounded-2xl overflow-hidden shadow-lg">
+              <iframe
+                src={`https://www.youtube.com/embed/${article.videos[0]}`}
+                className="w-full h-full object-cover"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title={article.title}
+              />
+            </div>
+          )}
 
           {/* Article Body */}
           <div className="prose prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed">

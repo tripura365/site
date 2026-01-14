@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "news-provider-bucket.s3.ap-south-1.amazonaws.com" },
       { hostname: "img.youtube.com" },
+      { hostname: "i.ytimg.com" },
     ],
   },
   experimental: {
