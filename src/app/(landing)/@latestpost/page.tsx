@@ -1,10 +1,11 @@
 import { getLatestNews } from "@/actions/news";
+import { getYtThumbnail } from "@/lib/utils";
 import { format } from "date-fns";
 import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const revalidate = 60 * 10;
+export const revalidate = 600;
 
 export default async function Page() {
   const { data } = await getLatestNews();
@@ -25,15 +26,16 @@ export default async function Page() {
         <Link href={`/news/${post.id}`} className="group block">
           <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
             {/* Background Image with Zoom Effect */}
-            {post.images.length > 0 && (
-              <Image
-                src={post.images[0]}
-                alt={post.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                priority
-              />
-            )}
+
+            <Image
+              src={
+                post.images[0] ? post.images[0] : getYtThumbnail(post.videos[0])
+              }
+              alt={post.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              priority
+            />
 
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
