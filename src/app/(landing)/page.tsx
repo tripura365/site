@@ -37,7 +37,11 @@ export async function generateMetadata(): Promise<Metadata> {
       url: `${protocol}://${origin}`,
       images: [
         {
-          url: res.data?.[0]?.images?.[0] || (res.data?.[0]?.videos?.[0] ? getYtThumbnail(res.data[0].videos[0]) : siteLogo.src),
+          url:
+            res.data?.[0]?.images?.[0] ||
+            (res.data?.[0]?.videos?.[0]
+              ? getYtThumbnail(res.data[0].videos[0])
+              : siteLogo.src),
           width: 210,
           height: 70,
           alt: "Tripura 365",
@@ -49,7 +53,12 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Tripura 365",
       description: `Tripura 365 is a dynamic and trusted Indian news website that brings you 
     the latest and most relevant news from the vibrant state of Tripura.`,
-      images: [res.data?.[0]?.images?.[0] || (res.data?.[0]?.videos?.[0] ? getYtThumbnail(res.data[0].videos[0]) : siteLogo.src)],
+      images: [
+        res.data?.[0]?.images?.[0] ||
+          (res.data?.[0]?.videos?.[0]
+            ? getYtThumbnail(res.data[0].videos[0])
+            : siteLogo.src),
+      ],
     },
   };
 }
@@ -228,7 +237,7 @@ export default async function Home() {
           </div>
 
           {/* Side News - Takes 1/4 width on desktop, stacks below on mobile */}
-          <div className="lg:col-span-1 h-full min-h-[400px]">
+          <div className="lg:col-span-1 lg:h-full min-h-100">
             {/* We fetch top news here or use a subset of what we might already have if available, 
                 but based on imports we need to fetch it. 
                 Wait, we haven't fetched 'topNews' in the component body yet. 

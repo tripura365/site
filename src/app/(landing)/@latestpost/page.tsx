@@ -24,7 +24,7 @@ export default async function Page() {
         </div>
 
         <Link href={`/news/${post.id}`} className="group block">
-          <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
+          <div className="@container relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
             {/* Background Image with Zoom Effect */}
 
             <Image
@@ -54,7 +54,7 @@ export default async function Page() {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight drop-shadow-lg">
+                <h1 className="text-3xl font-bold text-white leading-tight drop-shadow-lg @sm:line-clamp-3 line-clamp-1">
                   {post.title}
                 </h1>
 
@@ -77,7 +77,7 @@ export default async function Page() {
 
               {/* CTA Button */}
               <div className="hidden md:block">
-                <button className="flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-full font-bold transition-all duration-300 hover:bg-blue-50 hover:scale-105 shadow-lg group-hover:shadow-blue-900/20">
+                <button className="text-nowrap flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-full font-bold transition-all duration-300 hover:bg-blue-50 hover:scale-105 shadow-lg group-hover:shadow-blue-900/20">
                   Read Full Article
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
