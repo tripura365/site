@@ -22,6 +22,8 @@ import {
 // THis is the origin host URL
 const origin = process.env.ORIGIN ?? "https://master-news-service.onrender.com";
 const hostId = process.env.HOST_ID!;
+const adminUrl = "https://patrakar.app";
+const adminJwt = process.env.ADMIN_JWT;
 
 export async function getTopNews() {
   const [err, res] = await catchError<ApiResponseWithoutPagination>(
@@ -29,8 +31,8 @@ export async function getTopNews() {
       fetch(`${origin}/api/index_delivery?intent=latest`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
   return res;
@@ -42,8 +44,8 @@ export async function getLatestNews() {
       fetch(`${origin}/api/index_delivery?intent=recent`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
   return res;
@@ -55,8 +57,8 @@ export async function getTrendingNews() {
       fetch(`${origin}/api/index_delivery?intent=most_read`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
   return res;
@@ -68,8 +70,8 @@ export async function getAllCategories() {
       fetch(`${origin}/api/index_delivery?intent=all_categories`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<Category[]>([]);
   return res;
@@ -81,8 +83,8 @@ export async function getVideoNews() {
       fetch(`${origin}/api/index_delivery?intent=recent_articles_with_videos`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
   return res;
@@ -94,8 +96,8 @@ export async function getAdVideos() {
       fetch(`${origin}/api/index_delivery?intent=ad_videos`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<AdVideoData[]>([]);
   return res;
@@ -107,8 +109,8 @@ export async function getLandscapeAdBannerImages() {
       fetch(`${origin}/api/index_delivery?intent=wide_ad_images`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<AdBannerImageData[]>([]);
   return res;
@@ -120,8 +122,8 @@ export async function getPortraitAdBannerImages() {
       fetch(`${origin}/api/index_delivery?intent=tall_ad_images`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<AdBannerImageData[]>([]);
   return res;
@@ -135,8 +137,8 @@ export async function getNewsInfo(id: string) {
           headers: { "Host-Id": hostId },
           next: { revalidate: 60 * 10 },
         }).then((res) => res.json()),
-      { helperText: `news ${id}`, retriesCount: 3 }
-    )
+      { helperText: `news ${id}`, retriesCount: 3 },
+    ),
   );
   if (err) return null;
   return res;
@@ -149,8 +151,8 @@ export async function getCategoryWiseNews() {
         fetch(`${origin}/api/index_delivery?intent=category_wise_news`, {
           headers: { "Host-Id": hostId },
           next: { revalidate: 60 * 10 },
-        }).then((res) => res.json())
-      )
+        }).then((res) => res.json()),
+      ),
     );
   if (err)
     return createEmptyDataInstance<
@@ -169,8 +171,8 @@ export async function getQuotation() {
       fetch(`${origin}/api/cosmetic_data?intent=quote`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err)
     return createEmptyDataInstance<{
@@ -189,8 +191,8 @@ export async function getCategoryNewsInfo(id: string) {
           headers: { "Host-Id": hostId },
           next: { revalidate: 60 * 10 },
         }).then((res) => res.json()),
-      { helperText: `category ${id}`, retriesCount: 3 }
-    )
+      { helperText: `category ${id}`, retriesCount: 3 },
+    ),
   );
   if (err) return createEmptyDataInstance<Data[]>([]);
   return res;
@@ -204,8 +206,8 @@ export async function getWeatherInfo() {
           headers: { "Host-Id": hostId },
           next: { revalidate: 60 * 10 },
         }).then((res) => res.json()),
-      { helperText: `headline`, retriesCount: 3 }
-    )
+      { helperText: `headline`, retriesCount: 3 },
+    ),
   );
 
   if (err) return null;
@@ -218,11 +220,35 @@ export async function getImageGallery() {
       fetch(`${origin}/api/index_delivery?intent=image_gallary`, {
         headers: { "Host-Id": hostId },
         next: { revalidate: 60 * 10 },
-      }).then((res) => res.json())
-    )
+      }).then((res) => res.json()),
+    ),
   );
   if (err) return createEmptyDataInstance<ImageItem[]>([]);
   return res;
+}
+
+export async function getHeadline() {
+  const [err, res] = await catchError<string>(
+    retry(() =>
+      fetch(`${adminUrl}/adminHeadlines`, {
+        headers: { Authorization: `Bearer ${adminJwt}` },
+        next: { revalidate: 60 * 10 },
+      }).then((res) => res.text()),
+    ),
+  );
+  if (err) return createEmptyDataInstance<string>("");
+
+  const startTag = "<h5>";
+  const endTag = "</h5>";
+
+  const startIdx = res.indexOf(startTag);
+  const endIdx = res.indexOf(endTag);
+
+  if (startIdx === -1 || endIdx === -1) return { data: "" };
+
+  const headline = res.slice(startIdx + startTag.length, endIdx);
+
+  return { data: headline };
 }
 
 export async function getSlok() {

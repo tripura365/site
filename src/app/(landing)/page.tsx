@@ -5,6 +5,7 @@ import {
   getSlok,
   getImageGallery,
   getAllCategories,
+  getHeadline,
 } from "@/actions/news";
 import HeroCarousel from "@/components/custom/hero-carousel";
 import TopNewsSidebar from "@/components/custom/top-news-sidebar";
@@ -90,6 +91,7 @@ export default async function Home() {
   const slok = await getSlok();
   const { data: latestNews } = await getLatestNews();
   const topNews = await getTopNews();
+  const headline = await getHeadline();
 
   return (
     <div className="bg-gray-50 min-h-screen pb-12">
@@ -206,11 +208,8 @@ export default async function Home() {
                   <span className="flex items-center gap-4">
                     {latestNews.map((news, idx) => (
                       <span key={news.id} className="flex items-center gap-4">
-                        <span className="text-red-600 font-bold">
-                          [{news?.category?.name}]
-                        </span>
                         <span className="hover:text-red-600 transition-colors cursor-pointer">
-                          {news.title}
+                          {headline.data}
                         </span>
                         {idx < latestNews.length - 1 && (
                           <span className="text-gray-300 mx-4">|</span>
