@@ -17,6 +17,7 @@ import { IconType } from "react-icons";
 import { Galada } from "next/font/google";
 import { cn, getYtThumbnail } from "@/lib/utils";
 import siteLogo from "@/../public/logo.png";
+import event from "@/../public/23-jan.jpeg";
 
 // export const revalidate = 600;
 
@@ -170,12 +171,10 @@ export default async function Home() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <div className="max-w-160 rounded-2xl overflow-hidden mx-auto">
+        <div className="max-w-100 rounded-2xl overflow-hidden mx-auto">
           <img
-            src={
-              "https://t3.ftcdn.net/jpg/03/17/65/24/360_F_317652417_xg6LyI6Xr9lwdxSib4WDkdSKThVxIaz5.jpg"
-            }
-            className="size-full object-contain"
+            src={event.src}
+            className="w-full aspect-square object-contain"
           />
         </div>
       </section>
