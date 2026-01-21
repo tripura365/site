@@ -4,8 +4,21 @@ import Timer from "./timer";
 import Weather from "./weather";
 import { Galada } from "next/font/google";
 import { cn } from "@/lib/utils";
+import event from "@/../public/event.jpeg";
 
 const galanda = Galada({ subsets: ["latin"], weight: ["400"] });
+
+function EventBadge({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div className={cn("size-16", className)} {...props}>
+      <img
+        src={event.src}
+        alt="Event"
+        className="size-full rounded-full border-4 border-white shadow-lg object-cover"
+      />
+    </div>
+  );
+}
 
 export default function Navbar() {
   return (
@@ -20,7 +33,7 @@ export default function Navbar() {
             <div
               className={cn(
                 "bg-red-600 text-white text-sm font-semibold h-fit my-auto px-2 py-0.5 rounded-full animate-pulse",
-                "absolute left-14 whitespace-nowrap"
+                "absolute left-14 whitespace-nowrap",
               )}
             >
               Test Run
@@ -28,17 +41,18 @@ export default function Navbar() {
           </div>
 
           {/* Center: Title */}
-          <div className="flex-1 flex justify-center pointer-events-none relative">
+          <div className="flex-1 flex justify-center items-end md:gap-8 pointer-events-none relative">
             <Link href={"/"} className="pointer-events-auto">
               <h1
                 className={cn(
                   "text-3xl md:text-5xl font-bold text-red-700 whitespace-nowrap tracking-tight hover:scale-105 transition-transform duration-300 cursor-pointer drop-shadow-sm",
-                  galanda.className
+                  galanda.className,
                 )}
               >
                 ত্রিপুরা ৩৬৫
               </h1>
             </Link>
+            <EventBadge className="hidden md:block" />
           </div>
 
           {/* Right: Utilities */}
@@ -49,9 +63,10 @@ export default function Navbar() {
               <Weather />
             </div>
           </div>
+          <EventBadge className="block md:hidden" />
 
           {/* Mobile Spacer to keep title centered if utilities are hidden */}
-          <div className="md:hidden w-16" />
+          {/* <div className="md:hidden w-16" /> */}
         </div>
       </div>
     </nav>

@@ -17,7 +17,6 @@ import { IconType } from "react-icons";
 import { Galada } from "next/font/google";
 import { cn, getYtThumbnail } from "@/lib/utils";
 import siteLogo from "@/../public/logo.png";
-import event from "@/../public/23-jan.jpeg";
 
 // export const revalidate = 600;
 
@@ -170,14 +169,14 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      {/* <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div className="max-w-100 rounded-2xl overflow-hidden mx-auto">
           <img
             src={event.src}
             className="w-full aspect-square object-contain"
           />
         </div>
-      </section>
+      </section> */}
 
       {/* Breaking News Marquee */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
