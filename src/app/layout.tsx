@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/custom/navbar";
 import Footer from "@/components/custom/footer";
-import DurgaBanner from "@/components/custom/durga-banner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +33,7 @@ export default function RootLayout({
       >
         <div>
           <Navbar />
-          <DurgaBanner />
+
           <main>{children}</main>
           <Footer />
         </div>

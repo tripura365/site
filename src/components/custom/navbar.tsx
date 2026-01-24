@@ -4,7 +4,6 @@ import Timer from "./timer";
 import Weather from "./weather";
 import { Galada } from "next/font/google";
 import { cn } from "@/lib/utils";
-import event from "@/../public/event.jpeg";
 
 const galanda = Galada({ subsets: ["latin"], weight: ["400"] });
 
@@ -12,7 +11,7 @@ function EventBadge({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={cn("size-16", className)} {...props}>
       <img
-        src={event.src}
+        src={"https://d2ros3ibvdm942.cloudfront.net/tripura365/event.jpeg"}
         alt="Event"
         className="size-full rounded-full border-4 border-white shadow-lg object-cover"
       />
