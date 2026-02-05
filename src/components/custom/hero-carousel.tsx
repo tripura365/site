@@ -27,7 +27,7 @@ export default function HeroCarousel({ data: slides }: { data: ImageItem[] }) {
 
   return (
     <div
-      className="relative h-96 md:h-125 overflow-hidden bg-gray-900 rounded-lg"
+      className="relative h-96 md:min-h-125 md:h-full overflow-hidden bg-gray-900 rounded-lg"
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}
     >

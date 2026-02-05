@@ -26,7 +26,7 @@ export async function generateMetadata({
   const res = await getCategoryWiseNews();
 
   const category = res.data?.find(
-    (cat) => cat?.articles?.[0]?.category?.id === Number(cId)
+    (cat) => cat?.articles?.[0]?.category?.id === Number(cId),
   );
 
   return {
@@ -35,7 +35,11 @@ export async function generateMetadata({
       title: category?.name,
       images: [
         {
-          url: category?.articles?.[0]?.images?.[0] || (category?.articles?.[0]?.videos?.[0] ? getYtThumbnail(category.articles[0].videos[0]) : ""),
+          url:
+            category?.articles?.[0]?.images?.[0] ||
+            (category?.articles?.[0]?.videos?.[0]
+              ? getYtThumbnail(category.articles[0].videos[0])
+              : ""),
         },
       ],
     },
@@ -43,7 +47,10 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: category?.name,
       images: [
-        category?.articles?.[0]?.images?.[0] || (category?.articles?.[0]?.videos?.[0] ? getYtThumbnail(category.articles[0].videos[0]) : ""),
+        category?.articles?.[0]?.images?.[0] ||
+          (category?.articles?.[0]?.videos?.[0]
+            ? getYtThumbnail(category.articles[0].videos[0])
+            : ""),
       ],
     },
   };
@@ -116,13 +123,18 @@ export default async function Page({
             <Link href={`/news/${featuredNews.id}`} className="group block">
               <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                 {/* Background Image with Zoom Effect */}
-                {(featuredNews.images.length > 0 || (featuredNews.videos && featuredNews.videos.length > 0)) && (
-                  <Image
-                    src={featuredNews.images.length > 0 ? featuredNews.images[0] : getYtThumbnail(featuredNews.videos[0])}
+                {(featuredNews.images.length > 0 ||
+                  (featuredNews.videos && featuredNews.videos.length > 0)) && (
+                  <img
+                    src={
+                      featuredNews.images.length > 0
+                        ? featuredNews.images[0]
+                        : getYtThumbnail(featuredNews.videos[0])
+                    }
                     alt={featuredNews.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    priority
+                    // fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105 size-full"
+                    // priority
                   />
                 )}
 
@@ -186,15 +198,24 @@ export default async function Page({
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {otherNews.map((news) => (
-                <Link href={`/news/${news.id}`} key={news.id} className="group block h-full">
+                <Link
+                  href={`/news/${news.id}`}
+                  key={news.id}
+                  className="group block h-full"
+                >
                   <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                     {/* Full Background Image */}
-                    {(news.images.length > 0 || (news.videos && news.videos.length > 0)) && (
-                      <Image
-                        src={news.images.length > 0 ? news.images[0] : getYtThumbnail(news.videos[0])}
+                    {(news.images.length > 0 ||
+                      (news.videos && news.videos.length > 0)) && (
+                      <img
+                        src={
+                          news.images.length > 0
+                            ? news.images[0]
+                            : getYtThumbnail(news.videos[0])
+                        }
                         alt={news.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        // fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110 size-full"
                       />
                     )}
 

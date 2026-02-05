@@ -238,19 +238,14 @@ export default async function Home() {
 
       {/* Hero Section: Carousel + Top News Sidebar */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Main Carousel - Takes 3/4 width on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+          {/* Main Carousel */}
           <div className="lg:col-span-3">
             <HeroCarousel data={imageGallery ?? []} />
           </div>
 
-          {/* Side News - Takes 1/4 width on desktop, stacks below on mobile */}
-          <div className="lg:col-span-1 lg:h-full min-h-100">
-            {/* We fetch top news here or use a subset of what we might already have if available, 
-                but based on imports we need to fetch it. 
-                Wait, we haven't fetched 'topNews' in the component body yet. 
-                Let's add that fetch at the top of the function first. 
-             */}
+          {/* Side News */}
+          <div className="lg:col-span-1 h-full overflow-hidden">
             <TopNewsSidebar data={topNews?.data?.slice(0, 3) ?? []} />
           </div>
         </div>

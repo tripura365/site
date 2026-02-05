@@ -47,7 +47,9 @@ export async function generateMetadata({
       url: `${protocol}://${host}/news/${newsId}`,
       images: [
         {
-          url: article?.images[0] || (article?.videos?.[0] ? getYtThumbnail(article.videos[0]) : ""),
+          url:
+            article?.images[0] ||
+            (article?.videos?.[0] ? getYtThumbnail(article.videos[0]) : ""),
           width: 1200,
           height: 630,
           alt: article?.title,
@@ -58,7 +60,10 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: article?.title,
       description: article?.body.slice(0, 200),
-      images: [article?.images[0] || (article?.videos?.[0] ? getYtThumbnail(article.videos[0]) : "")],
+      images: [
+        article?.images[0] ||
+          (article?.videos?.[0] ? getYtThumbnail(article.videos[0]) : ""),
+      ],
     },
   };
 }
@@ -70,13 +75,11 @@ export async function generateStaticParams() {
   (await getLatestNews()).data?.forEach((news) => newsSet.add(news.id));
   (await getTrendingNews()).data?.forEach((news) => newsSet.add(news.id));
   (await getCategoryWiseNews()).data?.forEach((cat) =>
-    cat.articles.forEach((news) => newsSet.add(news.id))
+    cat.articles.forEach((news) => newsSet.add(news.id)),
   );
 
   return Array.from(newsSet).map((id) => ({ newsId: id.toString() }));
 }
-
-
 
 export default async function Page({
   params,
@@ -113,19 +116,23 @@ export default async function Page({
       </div>
     );
 
-  const image = article.images?.[0] ? article.images[0] : article.videos?.[0] ? getYtThumbnail(article.videos[0]) : null;
+  const image = article.images?.[0]
+    ? article.images[0]
+    : article.videos?.[0]
+      ? getYtThumbnail(article.videos[0])
+      : null;
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section with Parallax-like effect */}
       <div className="relative h-[70vh] w-full overflow-hidden">
         {image && (
-          <Image
+          <img
             src={image}
             alt={article.title}
-            fill
-            className="object-cover"
-            priority
+            // fill
+            className="object-cover size-full"
+            // priority
           />
         )}
         <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/60 to-transparent" />
@@ -210,7 +217,6 @@ export default async function Page({
               </button>
             </div>
           </div>
-
 
           {/* Video Section */}
           {article.videos && article.videos.length > 0 && (

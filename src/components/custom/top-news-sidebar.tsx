@@ -27,26 +27,23 @@ export default function TopNewsSidebar({
       </div>
 
       <div className="flex-1 grid lg:grid-rows-3 lg:grid-cols-1 sm:grid-cols-2 gap-3">
-        {/* We map the data, but if fewer than 3, the grid cells remain empty. 
-                    If we strictly want 3 slots always (even placeholders), we'd need to pad the array, 
-                    but just having the first item take 1/3 height satisfies 'add spacing for 3'. */}
         {data.map((news) => (
           <Link
             key={news.id}
             href={`/news/${news.id}`}
-            className="@container group relative w-full lg:h-full aspect-video lg:aspect-auto rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+            className="@container group relative w-full lg:h-full aspect-video rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
           >
             {/* Background Image */}
             {(news.images && news.images.length > 0) ||
             (news.videos && news.videos.length > 0) ? (
-              <Image
+              <img
                 src={
                   news.images && news.images.length > 0
                     ? news.images[0]
                     : getYtThumbnail(news.videos[0])
                 }
                 alt={news.title}
-                fill
+                // fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
             ) : (

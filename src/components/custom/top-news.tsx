@@ -41,15 +41,15 @@ export default function TopNews({
               <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 {(news.images.length > 0 ||
                   (news.videos && news.videos.length > 0)) && (
-                  <Image
+                  <img
                     src={
                       news.images.length > 0
                         ? news.images[0]
                         : getYtThumbnail(news.videos[0])
                     }
                     alt={news.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    // fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 size-full"
                   />
                 )}
 

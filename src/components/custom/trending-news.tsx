@@ -40,15 +40,15 @@ export default function TrendingNews({
                 {/* Full Background Image */}
                 {(post.images.length > 0 ||
                   (post.videos && post.videos.length > 0)) && (
-                  <Image
+                  <img
                     src={
                       post.images.length > 0
                         ? post.images[0]
                         : getYtThumbnail(post.videos[0])
                     }
                     alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    // fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 size-full"
                   />
                 )}
 
