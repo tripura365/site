@@ -26,7 +26,7 @@ export default async function Page() {
   const category_res = await getAllCategories();
 
   const getCategoryByName = (name: string) => {
-    return category_res.data.find((cat) => cat.name === name)!;
+    return category_res.find((cat) => cat.name === name)!;
   };
 
   return (
@@ -40,7 +40,7 @@ export default async function Page() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16">
-          {sortCategories(res.data ?? [])?.map((category) => (
+          {sortCategories(res ?? [])?.map((category) => (
             <div key={category.name} className="flex flex-col gap-6">
               {/* Category Header */}
               <div className="flex items-center justify-between border-b border-gray-100 pb-4">
@@ -68,13 +68,13 @@ export default async function Page() {
                     className="group block"
                   >
                     <article className="relative h-72 w-full rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                      {(category.articles[0].images.length > 0 ||
+                      {(category.articles[0].photos?.length > 0 ||
                         (category.articles[0].videos &&
                           category.articles[0].videos.length > 0)) && (
                         <img
                           src={
-                            category.articles[0].images.length > 0
-                              ? category.articles[0].images[0]
+                            category.articles[0].photos.length > 0
+                              ? category.articles[0].photos[0]?.secure_urls
                               : getYtThumbnail(category.articles[0].videos[0])
                           }
                           alt={category.articles[0].title}
@@ -111,12 +111,12 @@ export default async function Page() {
                     >
                       <article className="flex gap-5 items-start p-3 -mx-3 rounded-xl hover:bg-gray-50 transition-colors">
                         <div className="relative w-28 h-20 shrink-0 rounded-lg overflow-hidden shadow-sm">
-                          {(article.images.length > 0 ||
+                          {(article.photos?.length > 0 ||
                             (article.videos && article.videos.length > 0)) && (
                             <img
                               src={
-                                article.images.length > 0
-                                  ? article.images[0]
+                                article.photos?.length > 0
+                                  ? article.photos[0]?.secure_urls
                                   : getYtThumbnail(article.videos[0])
                               }
                               alt={article.title}

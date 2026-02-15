@@ -4,5 +4,5 @@ import TrendingNews from "@/components/custom/trending-news";
 export default async function Page() {
   const res = await getTrendingNews();
 
-  return <TrendingNews data={res.data} hideViewAll />;
+  return <TrendingNews data={res} hideViewAll />;
 }

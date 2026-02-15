@@ -67,3 +67,12 @@ export async function retry<T>(
 export function getYtThumbnail(id: string) {
   return `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 }
+
+export function getValue(obj: any, path: string) {
+  const elements = path.split(".");
+  return elements.reduce((acc, curr) => {
+    if (acc === null || acc === undefined) return undefined;
+    // console.log(`Accessing property '${curr}' of`, acc);
+    return acc[curr];
+  }, obj);
+}

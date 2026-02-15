@@ -2,7 +2,7 @@ import { getImageGallery, getTopNews } from "@/actions/news";
 import HeroCarousel from "@/components/custom/hero-carousel";
 
 export default async function CarouselSC() {
-  const { data } = await getImageGallery();
+  const data = await getImageGallery();
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

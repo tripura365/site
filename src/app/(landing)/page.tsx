@@ -41,9 +41,9 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [
         {
           url:
-            res.data?.[0]?.images?.[0] ||
-            (res.data?.[0]?.videos?.[0]
-              ? getYtThumbnail(res.data[0].videos[0])
+            res?.[0]?.photos?.[0]?.secure_urls ||
+            (res?.[0]?.videos?.[0]
+              ? getYtThumbnail(res[0].videos[0])
               : siteLogo.src),
           width: 210,
           height: 70,
@@ -57,9 +57,9 @@ export async function generateMetadata(): Promise<Metadata> {
       description: `Tripura 365 is a dynamic and trusted Indian news website that brings you 
     the latest and most relevant news from the vibrant state of Tripura.`,
       images: [
-        res.data?.[0]?.images?.[0] ||
-          (res.data?.[0]?.videos?.[0]
-            ? getYtThumbnail(res.data[0].videos[0])
+        res?.[0]?.photos?.[0]?.secure_urls ||
+          (res?.[0]?.videos?.[0]
+            ? getYtThumbnail(res?.[0].videos[0])
             : siteLogo.src),
       ],
     },
@@ -98,10 +98,10 @@ const sortcategories = (data: Category[]) => {
 };
 
 export default async function Home() {
-  const { data: imageGallery } = await getImageGallery();
+  const imageGallery = await getImageGallery();
   const categories = await getAllCategories();
   const slok = await getSlok();
-  const { data: latestNews } = await getLatestNews();
+  const latestNews = await getLatestNews();
   const topNews = await getTopNews();
   const headlines = await getHeadline();
 
@@ -111,7 +111,7 @@ export default async function Home() {
       <div className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 overflow-x-auto py-3 no-scrollbar mask-gradient-x">
-            {sortcategories(categories.data ?? [])
+            {sortcategories(categories ?? [])
               ?.sort((a, b) => a.sequence - b.sequence)
               .map((item) => (
                 <Link
@@ -225,14 +225,14 @@ export default async function Home() {
               scrollamount="6"
             >
               <div className="flex items-center h-full text-lg font-medium text-gray-800">
-                {headlines.data.length > 0 ? (
+                {headlines.length > 0 ? (
                   <span className="flex items-center gap-4">
-                    {headlines.data.map((hl, idx) => (
+                    {headlines.map((hl, idx) => (
                       <span key={hl.id} className="flex items-center gap-4">
                         <span className="hover:text-red-600 transition-colors cursor-pointer">
                           {hl.content}
                         </span>
-                        {idx < headlines.data.length - 1 && (
+                        {idx < headlines.length - 1 && (
                           <span className="text-gray-300 mx-4">|</span>
                         )}
                       </span>
@@ -258,7 +258,7 @@ export default async function Home() {
 
           {/* Side News */}
           <div className="lg:col-span-1 h-full overflow-hidden">
-            <TopNewsSidebar data={topNews?.data?.slice(0, 3) ?? []} />
+            <TopNewsSidebar data={topNews?.slice(0, 3) ?? []} />
           </div>
         </div>
       </section>

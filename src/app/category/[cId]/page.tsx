@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   const res = await getCategoryWiseNews();
 
   return (
-    res.data?.map((category) => ({
+    res?.map((category) => ({
       cId: (category?.articles[0]?.category?.id ?? "").toString(),
     })) ?? []
   );
@@ -25,7 +25,7 @@ export async function generateMetadata({
   const { cId } = await params;
   const res = await getCategoryWiseNews();
 
-  const category = res.data?.find(
+  const category = res?.find(
     (cat) => cat?.articles?.[0]?.category?.id === Number(cId),
   );
 
@@ -36,7 +36,7 @@ export async function generateMetadata({
       images: [
         {
           url:
-            category?.articles?.[0]?.images?.[0] ||
+            category?.articles?.[0]?.photos?.[0]?.secure_urls ||
             (category?.articles?.[0]?.videos?.[0]
               ? getYtThumbnail(category.articles[0].videos[0])
               : ""),
@@ -47,7 +47,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: category?.name,
       images: [
-        category?.articles?.[0]?.images?.[0] ||
+        category?.articles?.[0]?.photos?.[0]?.secure_urls ||
           (category?.articles?.[0]?.videos?.[0]
             ? getYtThumbnail(category.articles[0].videos[0])
             : ""),
@@ -123,11 +123,11 @@ export default async function Page({
             <Link href={`/news/${featuredNews.id}`} className="group block">
               <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                 {/* Background Image with Zoom Effect */}
-                {(featuredNews.images.length > 0 ||
+                {(featuredNews.images?.length > 0 ||
                   (featuredNews.videos && featuredNews.videos.length > 0)) && (
                   <img
                     src={
-                      featuredNews.images.length > 0
+                      featuredNews.images?.length > 0
                         ? featuredNews.images[0]
                         : getYtThumbnail(featuredNews.videos[0])
                     }

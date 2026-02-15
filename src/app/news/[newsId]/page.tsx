@@ -48,7 +48,7 @@ export async function generateMetadata({
       images: [
         {
           url:
-            article?.images[0] ||
+            article?.images?.[0] ||
             (article?.videos?.[0] ? getYtThumbnail(article.videos[0]) : ""),
           width: 1200,
           height: 630,
@@ -61,7 +61,7 @@ export async function generateMetadata({
       title: article?.title,
       description: article?.body.slice(0, 200),
       images: [
-        article?.images[0] ||
+        article?.images?.[0] ||
           (article?.videos?.[0] ? getYtThumbnail(article.videos[0]) : ""),
       ],
     },
@@ -71,10 +71,10 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const newsSet = new Set<number>();
 
-  (await getTopNews()).data?.forEach((news) => newsSet.add(news.id));
-  (await getLatestNews()).data?.forEach((news) => newsSet.add(news.id));
-  (await getTrendingNews()).data?.forEach((news) => newsSet.add(news.id));
-  (await getCategoryWiseNews()).data?.forEach((cat) =>
+  (await getTopNews())?.forEach((news) => newsSet.add(news.id));
+  (await getLatestNews())?.forEach((news) => newsSet.add(news.id));
+  (await getTrendingNews())?.forEach((news) => newsSet.add(news.id));
+  (await getCategoryWiseNews())?.forEach((cat) =>
     cat.articles.forEach((news) => newsSet.add(news.id)),
   );
 

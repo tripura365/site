@@ -24,15 +24,15 @@ export async function GET() {
     language: "bn",
   });
 
-  const topNews = (await getTopNews()).data;
-  const latestPost = (await getLatestNews())?.data?.[0];
-  const trendingNews = (await getTrendingNews()).data;
-  const videoNews = (await getVideoNews()).data;
-  const categoryWiseNews = (await getCategoryWiseNews())?.data?.reduce<Data[]>(
+  const topNews = await getTopNews();
+  const latestPost = (await getLatestNews())?.[0];
+  const trendingNews = await getTrendingNews();
+  const videoNews = await getVideoNews();
+  const categoryWiseNews = (await getCategoryWiseNews())?.reduce<Data[]>(
     (acc, cat) => {
       return acc.concat(cat.articles);
     },
-    []
+    [],
   );
 
   const data_acc = [

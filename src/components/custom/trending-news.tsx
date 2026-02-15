@@ -38,12 +38,12 @@ export default function TrendingNews({
             >
               <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 {/* Full Background Image */}
-                {(post.images.length > 0 ||
+                {(post.photos?.length > 0 ||
                   (post.videos && post.videos.length > 0)) && (
                   <img
                     src={
-                      post.images.length > 0
-                        ? post.images[0]
+                      post.photos?.length > 0
+                        ? post.photos[0].secure_urls
                         : getYtThumbnail(post.videos[0])
                     }
                     alt={post.title}
@@ -58,7 +58,7 @@ export default function TrendingNews({
                 {/* Top Badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
                   <span className="self-start px-3 py-1 bg-red-600/90 backdrop-blur-sm text-white text-xs font-bold rounded-full shadow-sm">
-                    {post.category.name}
+                    {post.category?.name}
                   </span>
                 </div>
 

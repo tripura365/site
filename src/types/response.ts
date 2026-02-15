@@ -29,6 +29,24 @@ export type Data = {
   published_on: string;
   comments: any[]; // Could be typed further if comment structure is known
   last_drafted: string;
+  created: string;
+  total_views: number;
+  category: Category;
+  published: boolean;
+  photos: { public_id: string; secure_urls: string }[]; // Replace with exact image structure
+  thumbnail: string;
+  videos: string[]; // Replace with exact video structure
+};
+
+export type OriginalData = {
+  id: number;
+  user_id: number;
+  user_full_name: string;
+  title: string;
+  body: string;
+  published_on: string;
+  comments: any[]; // Could be typed further if comment structure is known
+  last_drafted: string;
   created_on: string;
   total_views: number;
   category: Category;
@@ -61,6 +79,18 @@ export type Headline = {
   id: number;
   content: string;
   created_on: string;
+};
+
+export type RawAdBannerImageData = {
+  id: number;
+  tall_image_id: string;
+  tall_image_secure_url: string;
+  wide_image_id: string;
+  wide_image_secure_url: string;
+  last_updated: string; // e.g. "2026-01-20 20:09:53.425561+00:00"
+  site_id: number;
+  tender_image_id: string | null;
+  tender_image_secure_url: string | null;
 };
 
 export type AdBannerImageData = {
@@ -137,6 +167,10 @@ export type ApiResponseWithoutPagination = BaseApiResonseWithoutPagination & {
 
 export type ApiResponseWithPagination = BaseApiResonseWithPagination & {
   data?: Data[];
+};
+
+export type OriginalApiResponseWithPagination = BaseApiResonseWithPagination & {
+  data?: OriginalData[];
 };
 
 export type ApiResponseAdVideoWithPagination = BaseApiResonseWithPagination & {

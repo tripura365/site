@@ -2,9 +2,13 @@ import { getImageGallery, getTopNews } from "@/actions/news";
 import HeroCarousel from "@/components/custom/hero-carousel";
 import TopNewsSidebar from "@/components/custom/top-news-sidebar";
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
-  const { data: topNews } = await getTopNews();
-  const { data: imageGallery } = await getImageGallery();
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const topNews = await getTopNews();
+  const imageGallery = await getImageGallery();
 
   return (
     <>

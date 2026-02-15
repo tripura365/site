@@ -117,10 +117,10 @@ export default async function Footer() {
               <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-red-600 rounded-full"></span>
             </h4>
             <ul className="space-y-3">
-              {categoryResponse.data?.map((category, idx) => (
-                <li key={category.articles?.[0]?.category.id ?? idx}>
+              {categoryResponse?.map((category, idx) => (
+                <li key={category.articles?.[0]?.category?.id ?? idx}>
                   <Link
-                    href={`/category/${category?.articles?.[0]?.category.id}`}
+                    href={`/category/${category?.articles?.[0]?.category?.id}`}
                     className="text-sm md:text-base hover:text-red-500 transition-colors flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 bg-gray-700 rounded-full group-hover:bg-red-500 transition-colors" />
