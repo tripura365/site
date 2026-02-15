@@ -34,11 +34,10 @@ export default function TopNewsSidebar({
             className="@container group relative w-full lg:h-full aspect-video rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
           >
             {/* Background Image */}
-            {(news.photos && news.photos.length > 0) ||
-            (news.videos && news.videos.length > 0) ? (
+            {news.photos?.length > 0 || news.videos?.length > 0 ? (
               <img
                 src={
-                  news.photos && news.photos.length > 0
+                  news.photos?.length > 0
                     ? news.photos[0]?.secure_urls
                     : getYtThumbnail(news.videos[0])
                 }

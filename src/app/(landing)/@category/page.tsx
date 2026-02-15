@@ -68,12 +68,11 @@ export default async function Page() {
                     className="group block"
                   >
                     <article className="relative h-72 w-full rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                      {(category.articles[0].photos?.length > 0 ||
-                        (category.articles[0].videos &&
-                          category.articles[0].videos.length > 0)) && (
+                      {(category.articles[0]?.photos?.length > 0 ||
+                        category.articles[0]?.videos?.length > 0) && (
                         <img
                           src={
-                            category.articles[0].photos.length > 0
+                            category.articles[0]?.photos?.length > 0
                               ? category.articles[0].photos[0]?.secure_urls
                               : getYtThumbnail(category.articles[0].videos[0])
                           }
@@ -112,7 +111,7 @@ export default async function Page() {
                       <article className="flex gap-5 items-start p-3 -mx-3 rounded-xl hover:bg-gray-50 transition-colors">
                         <div className="relative w-28 h-20 shrink-0 rounded-lg overflow-hidden shadow-sm">
                           {(article.photos?.length > 0 ||
-                            (article.videos && article.videos.length > 0)) && (
+                            article.videos?.length > 0) && (
                             <img
                               src={
                                 article.photos?.length > 0

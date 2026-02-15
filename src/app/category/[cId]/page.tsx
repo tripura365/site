@@ -65,10 +65,10 @@ export default async function Page({
   const res = await getCategoryNewsInfo(cId);
   const categoryName = res.data?.[0]?.category?.name || "Category";
   const newsList = res.data || [];
-  const featuredNews = newsList.length > 0 ? newsList[0] : null;
-  const otherNews = newsList.length > 1 ? newsList.slice(1) : [];
+  const featuredNews = newsList?.length > 0 ? newsList[0] : null;
+  const otherNews = newsList?.length > 1 ? newsList.slice(1) : [];
 
-  if (!res.data || res.data.length === 0) {
+  if (!res.data || res.data?.length === 0) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center bg-white">
         <div className="text-center space-y-4">
@@ -105,7 +105,7 @@ export default async function Page({
               {categoryName}
             </h1>
             <span className="text-gray-500 font-medium">
-              {newsList.length} Articles
+              {newsList?.length} Articles
             </span>
           </div>
           <div className="h-1.5 w-24 bg-blue-600 rounded-full mt-6" />
@@ -124,7 +124,7 @@ export default async function Page({
               <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                 {/* Background Image with Zoom Effect */}
                 {(featuredNews.images?.length > 0 ||
-                  (featuredNews.videos && featuredNews.videos.length > 0)) && (
+                  featuredNews.videos?.length > 0) && (
                   <img
                     src={
                       featuredNews.images?.length > 0
@@ -190,7 +190,7 @@ export default async function Page({
         )}
 
         {/* Latest News Grid (Top News Style) */}
-        {otherNews.length > 0 && (
+        {otherNews?.length > 0 && (
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
               <span className="w-2 h-8 bg-gray-900 rounded-full" />
@@ -205,11 +205,10 @@ export default async function Page({
                 >
                   <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                     {/* Full Background Image */}
-                    {(news.images.length > 0 ||
-                      (news.videos && news.videos.length > 0)) && (
+                    {(news.images?.length > 0 || news.videos?.length > 0) && (
                       <img
                         src={
-                          news.images.length > 0
+                          news.images?.length > 0
                             ? news.images[0]
                             : getYtThumbnail(news.videos[0])
                         }

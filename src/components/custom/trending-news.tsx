@@ -38,8 +38,7 @@ export default function TrendingNews({
             >
               <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 {/* Full Background Image */}
-                {(post.photos?.length > 0 ||
-                  (post.videos && post.videos.length > 0)) && (
+                {(post.photos?.length > 0 || post.videos?.length > 0) && (
                   <img
                     src={
                       post.photos?.length > 0

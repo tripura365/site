@@ -39,8 +39,7 @@ export default function TopNews({
               className="group block h-full"
             >
               <article className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                {(news.photos?.length > 0 ||
-                  (news.videos && news.videos.length > 0)) && (
+                {(news.photos?.length > 0 || news.videos?.length > 0) && (
                   <img
                     src={
                       news.photos?.length > 0

@@ -225,7 +225,7 @@ export default async function Home() {
               scrollamount="6"
             >
               <div className="flex items-center h-full text-lg font-medium text-gray-800">
-                {headlines.length > 0 ? (
+                {headlines?.length > 0 ? (
                   <span className="flex items-center gap-4">
                     {headlines.map((hl, idx) => (
                       <span key={hl.id} className="flex items-center gap-4">

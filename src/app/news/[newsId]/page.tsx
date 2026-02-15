@@ -219,7 +219,7 @@ export default async function Page({
           </div>
 
           {/* Video Section */}
-          {article.videos && article.videos.length > 0 && (
+          {article.videos?.length > 0 && (
             <div className="mb-8 w-full aspect-video rounded-2xl overflow-hidden shadow-lg">
               <iframe
                 src={`https://www.youtube.com/embed/${article.videos[0]}`}
