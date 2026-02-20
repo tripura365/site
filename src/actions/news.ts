@@ -346,27 +346,29 @@ export async function getImageGallery() {
 }
 
 export async function getHeadline() {
-  const [err, res] = await catchError<ApiResponseHeadlinesWithPagination>(
-    retry(() =>
-      fetch(`${origin}/api/index_delivery?intent=headlines`, {
-        headers: { "Host-Id": hostId },
-        next: { revalidate: 60 },
-      }).then((res) => res.json()),
-    ),
-  );
+  // const [err, res] = await catchError<ApiResponseHeadlinesWithPagination>(
+  //   retry(() =>
+  //     fetch(`${origin}/api/index_delivery?intent=headlines`, {
+  //       headers: { "Host-Id": hostId },
+  //       next: { revalidate: 60 },
+  //     }).then((res) => res.json()),
+  //   ),
+  // );
 
   // console.log(res?.data);
-  // const [err, res] = await catchError<Headline[]>(
-  //   getFullInfo(INTENT.HEADLINES.locator),
-  // );
+  const [err, res] = await catchError<Headline[]>(
+    getFullInfo(INTENT.HEADLINES.locator),
+  );
 
   // console.log("Headlines Response:", { err, res });
 
   if (err) return [] as Headline[];
 
-  const data = res.data?.filter(
+  const data = res?.filter(
     (h) => format(h.created_on, "PP") === format(new Date(), "PP"),
   );
+
+  // console.log(data);
 
   return data;
 }
