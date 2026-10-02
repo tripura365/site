@@ -1,7 +1,12 @@
 "use server";
 
 import { sloks } from "@/constants/sloks";
-import { catchError, createEmptyDataInstance, retry } from "@/lib/utils";
+import {
+  catchError,
+  createEmptyDataInstance,
+  generateRandomString,
+  retry,
+} from "@/lib/utils";
 import {
   Data,
   AdVideoData,
@@ -179,7 +184,7 @@ export async function getAdVideos() {
   });
   const [err, res] = await catchError<ApiEnvelope<AdVideo[]>>(
     retry(() =>
-      fetch(`${origin}/public/ad_video`, fetchOpts).then((res) => res.json()),
+      fetch(`${origin}/public/ad-video`, fetchOpts).then((res) => res.json()),
     ),
   );
   if (err || !res || !res.data)
@@ -214,7 +219,7 @@ export async function getLandscapeAdBannerImages() {
   });
   const [err, res] = await catchError<ApiEnvelope<AdImage[]>>(
     retry(() =>
-      fetch(`${origin}/public/ad_image`, fetchOpts).then((res) => res.json()),
+      fetch(`${origin}/public/ad-image`, fetchOpts).then((res) => res.json()),
     ),
   );
   if (err || !res || !res.data)
@@ -236,11 +241,11 @@ export async function getLandscapeAdBannerImages() {
       items_per_page: res.data.length,
     },
     data: res.data
-      .filter((img) => img.wide_image_secure_url)
+      .filter((img) => img.wide_image_secure_url || img.wide_image_url)
       .map((img) => ({
         id: img.id,
         last_updated: img.last_updated,
-        image_url: img.wide_image_secure_url,
+        image_url: img.wide_image_secure_url || img.wide_image_url,
         image_id: img.wide_image_id,
       })),
   };
@@ -252,7 +257,7 @@ export async function getPortraitAdBannerImages() {
   });
   const [err, res] = await catchError<ApiEnvelope<AdImage[]>>(
     retry(() =>
-      fetch(`${origin}/public/ad_image`, fetchOpts).then((res) => res.json()),
+      fetch(`${origin}/public/ad-image`, fetchOpts).then((res) => res.json()),
     ),
   );
   if (err || !res || !res.data)
@@ -274,12 +279,58 @@ export async function getPortraitAdBannerImages() {
       items_per_page: res.data.length,
     },
     data: res.data
-      .filter((img) => img.tall_image_secure_url)
+      .filter((img) => img.tall_image_secure_url || img.tall_image_url)
       .map((img) => ({
         id: img.id,
         last_updated: img.last_updated,
-        image_url: img.tall_image_secure_url,
+        image_url: img.tall_image_secure_url || img.tall_image_url,
         image_id: img.tall_image_id,
+      })),
+  };
+}
+
+export async function getTenderAdBannerImages() {
+  const fetchOpts = await getFetchOptions({
+    next: { revalidate: 60 * 10 },
+  });
+  const [err, res] = await catchError<ApiEnvelope<AdImage[]>>(
+    retry(() =>
+      fetch(`${origin}/public/ad-images`, fetchOpts).then((res) => res.json()),
+    ),
+  );
+  if (err || !res || !res.data)
+    return createEmptyDataInstance<AdBannerImageData[]>([]);
+
+  return {
+    status: true,
+    code: 200,
+    message: "Success",
+    pagination_info: {
+      starting_index: 1,
+      ending_index: res.data.length,
+      current_page: 1,
+      previous_page: null,
+      next_page: null,
+      total_pages: 1,
+      has_previous_page: false,
+      has_next_page: false,
+      items_per_page: res.data.length,
+    },
+    data: res.data
+      .filter(
+        (img) =>
+          img.tender_image_secure_url ||
+          img.tender_image_url ||
+          img.tender_images_secure_url,
+      )
+      .map((img) => ({
+        id: img.id,
+        last_updated: img.last_updated,
+        image_url:
+          img.tender_image_secure_url ||
+          img.tender_image_url ||
+          img.tender_images_secure_url,
+        image_id: img.tender_image_id ?? generateRandomString(36),
       })),
   };
 }

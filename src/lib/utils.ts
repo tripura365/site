@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import xss from "xss";
+import crypto from "crypto";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -94,4 +95,8 @@ export function getValue(obj: any, path: string) {
     // console.log(`Accessing property '${curr}' of`, acc);
     return acc[curr];
   }, obj);
+}
+
+export function generateRandomString(length: number): string {
+  return crypto.randomBytes(length).toString("hex");
 }

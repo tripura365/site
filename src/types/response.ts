@@ -148,10 +148,14 @@ export type AdImage = {
   id: number;
   tall_image_id: string;
   tall_image_secure_url: string;
+  tall_image_url: string;
   wide_image_id: string;
   wide_image_secure_url: string;
+  wide_image_url: string;
   tender_image_id: string | null;
   tender_images_secure_url: string;
+  tender_image_url: string;
+  tender_image_secure_url: string;
   last_updated: string;
 };
 
