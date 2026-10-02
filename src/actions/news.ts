@@ -219,7 +219,7 @@ export async function getLandscapeAdBannerImages() {
   });
   const [err, res] = await catchError<ApiEnvelope<AdImage[]>>(
     retry(() =>
-      fetch(`${origin}/public/ad-image`, fetchOpts).then((res) => res.json()),
+      fetch(`${origin}/public/ad-images`, fetchOpts).then((res) => res.json()),
     ),
   );
   if (err || !res || !res.data)
@@ -257,7 +257,7 @@ export async function getPortraitAdBannerImages() {
   });
   const [err, res] = await catchError<ApiEnvelope<AdImage[]>>(
     retry(() =>
-      fetch(`${origin}/public/ad-image`, fetchOpts).then((res) => res.json()),
+      fetch(`${origin}/public/ad-images`, fetchOpts).then((res) => res.json()),
     ),
   );
   if (err || !res || !res.data)
